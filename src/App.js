@@ -6,8 +6,9 @@ function App() {
   const [data, setData] = useState("");
 
   useEffect(() => {
+
     const fetchData = async () => {
-      const result = await fetch("/.netlify/functions/hello?name=Lorenzo", {
+      const result = await fetch("/.netlify/functions/read_all?q=all_customers", {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"

@@ -5,10 +5,14 @@ var client = new faunadb.Client({
 });
 
 exports.handler = async event => {
-  const subject = event.queryStringParameters.name || "World";
+  const subject = event.queryStringParameters.q || "all_customers";
 
   return client
-    .query(q.Get(q.Ref(q.Collection("customers"), "257509261693682185")))
+    .query(
+      q.Map(
+        q.Paginate(q.Match((q.Index(subject)))),
+        q.Lambda("X", q.Get(q.Var("X")))
+      ))
     .then(response => {
       console.log("success", response);
       /* Success! return the response with statusCode 200 */
