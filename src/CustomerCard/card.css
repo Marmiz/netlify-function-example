@@ -1,0 +1,44 @@
+.card {
+  background-color: var(--main-bg-light);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  color: var(--main-text-dark);
+  max-width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-rows: [row-picture] 60% [row-content] 30% [row-footer] 10%;
+  grid-template-columns: [first-col] 8px [content-col] auto [last-col] 8px;
+  width: 300px;
+  height: 300px;
+}
+
+.card__banner {
+  grid-column: first-col / 4;
+  grid-row: row-picture;
+  background-color: var(--main-bg-gray);
+}
+
+.card__content {
+  grid-column: content-col;
+  grid-row: row-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.card__content .title {
+  color: var(--main-text-dark);
+  flex-grow: 1;
+}
+
+.card__content .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--main-bg-gray);
+}
+
+
+.card__footer {
+  grid-column: content-col;
+  grid-row: row-footer;
+}
+

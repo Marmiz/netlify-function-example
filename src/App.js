@@ -9,6 +9,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let didCancel = false;
     const isInStorage = checkStorage('all_customers');
     if(isInStorage) {
       let storageData = localStorage.getItem('all_customers');
@@ -26,17 +27,25 @@ function App() {
           }
         });
         const { data } = await result.json();
-
-        setStorageData('all_customers', data);
-        setData(data);
+        if(!didCancel) {
+          // console.log(didCancel)
+          setStorageData('all_customers', data);
+          setData(data);
+        }
       } catch(error) {
-        console.error(error)
-      }
+        if(!didCancel) {
+          console.error(error)
+        }
+        }
 
-      setIsLoading(false)
+      setIsLoading(false);
     };
 
     fetchData();
+
+    return () => {
+      didCancel = true
+    };
   }, []);
 
   return (
@@ -44,9 +53,9 @@ function App() {
       {isLoading || !data ? (
         'loading...'
       ): (
-        <div>
+        <div className="App-content">
           {data.map(customer => (
-            <CustomerCard customer={customer} />
+            <CustomerCard customer={customer} key={customer.ref['@ref'].id}/>
           ))}
         </div>
       )}
