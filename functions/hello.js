@@ -5,8 +5,6 @@ var client = new faunadb.Client({
 });
 
 exports.handler = async event => {
-  const subject = event.queryStringParameters.name || "World";
-
   return client
     .query(q.Get(q.Ref(q.Collection("customers"), "257509261693682185")))
     .then(response => {
