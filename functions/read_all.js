@@ -1,11 +1,11 @@
 import faunadb, { query as q } from "faunadb";
 
-var client = new faunadb.Client({
-  secret: `${process.env.DB_TEST_CLIENT}`
-});
-
 exports.handler = async event => {
   const subject = event.queryStringParameters.q || "all_customers";
+
+  const client = new faunadb.Client({
+    secret: `${process.env.DB_TEST_CLIENT}`
+  });
 
   return client
     .query(
