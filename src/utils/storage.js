@@ -7,7 +7,14 @@ export function checkStorage(key) {
 
   if(!item) return false;
 
-  return true;
+  // we force check after 20m have passed
+  const { time } = JSON.parse(item);
+  const then = new Date(time);
+  const now = new Date();
+
+  const diffInMinutes = ( now.getTime() - then.getTime() ) / (1000 * 60);
+
+  return (diffInMinutes < 20);
 }
 
 /**

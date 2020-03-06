@@ -9,8 +9,10 @@
     "dotenv-webpack": "^1.7.0",
     "encoding": "^0.1.12",
     "faunadb": "^2.11.1",
+    "onsenui": "^2.10.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-onsenui": "^1.11.2",
     "react-scripts": "3.4.0"
   },
   "scripts": {

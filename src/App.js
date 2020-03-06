@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+
+import { Page, Tabbar, Tab } from "react-onsenui";
 
 import { CustomerCard } from "./CustomerCard";
 import { checkStorage, setStorageData } from "./utils/storage";
@@ -10,9 +11,9 @@ function App() {
 
   useEffect(() => {
     let didCancel = false;
-    const isInStorage = checkStorage('all_customers');
-    if(isInStorage) {
-      let storageData = localStorage.getItem('all_customers');
+    const isInStorage = checkStorage("all_customers");
+    if (isInStorage) {
+      let storageData = localStorage.getItem("all_customers");
       storageData = JSON.parse(storageData);
       setData(storageData.data);
       return;
@@ -20,23 +21,26 @@ function App() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const result = await fetch("/.netlify/functions/read_all?q=all_customers", {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
+        const result = await fetch(
+          "/.netlify/functions/read_all?q=all_customers",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            }
           }
-        });
+        );
         const { data } = await result.json();
-        if(!didCancel) {
+        if (!didCancel) {
           // console.log(didCancel)
-          setStorageData('all_customers', data);
+          setStorageData("all_customers", data);
           setData(data);
         }
-      } catch(error) {
-        if(!didCancel) {
-          console.error(error)
+      } catch (error) {
+        if (!didCancel) {
+          console.error(error);
         }
-        }
+      }
 
       setIsLoading(false);
     };
@@ -44,22 +48,39 @@ function App() {
     fetchData();
 
     return () => {
-      didCancel = true
+      didCancel = true;
     };
   }, []);
 
   return (
-    <div className="App">
+    <Page>
       {isLoading || !data ? (
-        'loading...'
-      ): (
-        <div className="App-content">
+        "loading..."
+      ) : (
+        <React.Fragment>
+          <Tabbar
+            index={0}
+            renderTabs={(activeIndex, tabbar) => [
+              {
+                content: (
+                  <Page active={activeIndex === 0} title="home">Home</Page>
+                ),
+                tab: <Tab label="Home" icon="md-home" />
+              },
+              {
+                content: (
+                  <Page active={activeIndex === 1}>settings</Page>
+                ),
+                tab: <Tab label="Settings" icon="md-settings" />
+              }
+            ]}
+          />
           {data.map(customer => (
-            <CustomerCard customer={customer} key={customer.ref['@ref'].id}/>
+            <CustomerCard customer={customer} key={customer.ref["@ref"].id} />
           ))}
-        </div>
+        </React.Fragment>
       )}
-    </div>
+    </Page>
   );
 }
 
