@@ -9,6 +9,7 @@
     "dotenv-webpack": "^1.7.0",
     "encoding": "^0.1.12",
     "faunadb": "^2.11.1",
+    "flow-bin": "^0.120.1",
     "onsenui": "^2.10.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -21,6 +22,7 @@
     "build": "react-scripts build",
     "build:functions": "netlify-lambda build ./functions",
     "test": "react-scripts test",
+    "flow": "flow",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
