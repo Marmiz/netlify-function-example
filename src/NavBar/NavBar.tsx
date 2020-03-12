@@ -1,15 +1,13 @@
-// @flow
-
 import * as React from "react";
 import { Toolbar, BackButton } from "react-onsenui";
 
-type Props  = {
-  backButton: Boolean,
+type NavBarProps  = {
+  backButton?: boolean,
   navigator: Object,
   title: String,
 }
 
-function NavBar(props: Props) {
+function NavBar(props: NavBarProps) {
   return (
     <Toolbar>
       <div className="left">

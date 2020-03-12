@@ -1,15 +1,14 @@
-// @flow
 import * as React from "react";
 
 import { Navigator } from "react-onsenui";
-import HomePage from "./HomePage";
+import HomePage from "./HomePage/index";
 
-type Route = {
-  key: string,
-  component: React.ComponentType<{}>
-}
+// type Route = {
+//   key: string,
+//   component: React.ComponentType<{}>
+// }
 
-const renderPage = (route: Route, navigator) => (
+const renderPage = (route, navigator) => (
   <route.component key={route.key} navigator={navigator} />
 );
 
