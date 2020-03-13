@@ -1,57 +1,65 @@
-import React, { useState, useEffect } from "react";
-import { Page, Navigator, List, ProgressBar } from "react-onsenui";
+import * as React from "react";
+import { Page, Navigator, List, ProgressBar, Fab, Icon } from "react-onsenui";
 import NavBar from "../NavBar/index";
+import AddTraining from "../AddTraining/index";
+import useAsync from "../utils/useAsync";
 
 type HomePageProps = {
   navigator: Navigator;
 };
 
-function HomePage(props: HomePageProps) {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    let didCancel = false;
-
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const result = await fetch(
-          "/.netlify/functions/read_all?q=all_trainings",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json"
-            }
-          }
-        );
-        const { data } = await result.json();
-        if (!didCancel) {
-          // console.log(didCancel)
-          setData(data);
-        }
-      } catch (error) {
-        if (!didCancel) {
-          console.error(error);
-        }
+const getData = (query: string): (() => Promise<any>) => () => {
+  console.log("get data");
+  return new Promise((resolve, reject) => {
+    fetch(`/.netlify/functions/read_all?q=${query}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
       }
+    })
+      .then(response => response.json())
+      .then(json => resolve(json))
+      .catch(error => reject(error));
+  });
+};
 
-      setIsLoading(false);
-    };
+const getTraining = getData("all_trainings");
 
-    fetchData();
+function HomePage(props: HomePageProps) {
+  const { pending, value, error } = useAsync(getTraining, false);
 
-    return () => {
-      didCancel = true;
-    };
-  }, []);
+  const addTraining = () => {
+    props.navigator.pushPage({ component: AddTraining, key: "ADD_TRAINING" });
+  };
 
-  if(isLoading) {
+  if (pending) {
     return (
-      <ProgressBar indeterminate />
-    )
+      <Page
+        renderToolbar={() => (
+          <NavBar navigator={props.navigator} title="Training Log" />
+        )}
+      >
+        <ProgressBar indeterminate />
+      </Page>
+    );
   }
 
+  if (error || !value) {
+    return (
+      <Page
+        renderToolbar={() => (
+          <NavBar navigator={props.navigator} title="Training Log" />
+        )}
+      >
+        <p>An Error occurred</p>
+        <Fab onClick={addTraining}>
+          <Icon icon="fa-plus" size={26} fixedWidth={false} />
+        </Fab>
+      </Page>
+    );
+  }
+
+  const { data } = value;
   return (
     <Page
       renderToolbar={() => (
@@ -66,6 +74,9 @@ function HomePage(props: HomePageProps) {
       ) : (
         <div>Looks like there's no training for this period</div>
       )}
+      <Fab onClick={addTraining}>
+        <Icon icon="fa-plus" size={26} fixedWidth={false} />
+      </Fab>
     </Page>
   );
 }
