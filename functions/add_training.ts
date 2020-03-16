@@ -26,15 +26,18 @@ exports.handler = async event => {
     secret: `${process.env.DB_TEST_CLIENT}`
   });
 
+  const date = new Date("2020-03-03");
+  const isoDate = date.toISOString();
   return client
   .query(q.Call(
-    q.Function("submit_training"),
+    q.Function("add_training_test"),
     "257509261693682185",
     [{
         "productId": "259509729140670977",
         "quantity": 3
       },
-    ]
+    ],
+    isoDate,
   ))
     .then(response => {
       console.log("success", response);

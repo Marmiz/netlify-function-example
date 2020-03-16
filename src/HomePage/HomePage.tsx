@@ -9,7 +9,6 @@ type HomePageProps = {
 };
 
 const getData = (query: string): (() => Promise<any>) => () => {
-  console.log("get data");
   return new Promise((resolve, reject) => {
     fetch(`/.netlify/functions/read_all?q=${query}`, {
       headers: {
@@ -23,7 +22,7 @@ const getData = (query: string): (() => Promise<any>) => () => {
   });
 };
 
-const getTraining = getData("all_trainings");
+const getTraining = getData("all_orders");
 
 function HomePage(props: HomePageProps) {
   const { pending, value, error } = useAsync(getTraining, false);
@@ -66,14 +65,14 @@ function HomePage(props: HomePageProps) {
         <NavBar navigator={props.navigator} title="Training Log" />
       )}
     >
-      {data.length ? (
+      {/* {data.length ? (
         <List
           dataSource={data}
           renderRow={training => <div>train {training}</div>}
         />
       ) : (
         <div>Looks like there's no training for this period</div>
-      )}
+      )} */}
       <Fab onClick={addTraining}>
         <Icon icon="fa-plus" size={26} fixedWidth={false} />
       </Fab>
