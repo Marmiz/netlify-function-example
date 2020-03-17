@@ -18,7 +18,7 @@ function AddTraining(props: TrainingProps) {
   return (
     <Page
         renderToolbar={() => (
-          <NavBar navigator={props.navigator} title="Training Log" backButton/>
+          <NavBar navigator={props.navigator} title="Add Training" backButton/>
         )}
       >
         <button

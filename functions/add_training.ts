@@ -1,22 +1,16 @@
 /*
-Call(
-  Function("submit_order"),
-    "1",
-    [
-      Object({
-        "productId": "1",
-        "quantity": 10
-      }),
-      Object({
-        "productId": "2",
-        "quantity": 5
-      }),
-      Object({
-        "productId": "3",
-        "quantity": 20
-      })
-    ]
-);
+  Call(
+    Function("test_training"),
+    "257509261693682185",
+    {
+      trainingId: "259509729140670977",
+      extras: [{
+        extraId: "259512350637294089",
+        quantity: 2
+      }],
+    },
+    "2020-03-17T09:10:06.870Z"
+  )
 */
 
 import faunadb, { query as q } from "faunadb";
@@ -30,14 +24,12 @@ exports.handler = async event => {
   const isoDate = date.toISOString();
   return client
   .query(q.Call(
-    q.Function("add_training_test"),
+    q.Function("test_training"),
     "257509261693682185",
-    [{
-        "productId": "259509729140670977",
-        "quantity": 3
-      },
-    ],
-    isoDate,
+    {
+      "name": "Test"
+    },
+    isoDate
   ))
     .then(response => {
       console.log("success", response);

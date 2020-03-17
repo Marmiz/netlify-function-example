@@ -29,3 +29,11 @@ exports.handler = async event => {
       };
     });
 };
+
+
+/**
+ * example of filtering based by date
+ * Filter(
+  Map(Paginate(Match(Index("all_orders"))), Lambda("x", Select("data", Get(Var("x")) ))),
+  Lambda('i',Equals(4, Month(Select('creationDate',Var('i'))))))
+ */
