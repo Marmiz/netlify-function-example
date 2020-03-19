@@ -1,25 +1,12 @@
 import * as React from "react";
 import { Page, Navigator, List, ProgressBar, Fab, Icon } from "react-onsenui";
 import NavBar from "../NavBar/index";
-import AddTraining from "../AddTraining/index";
+import AddTraining from "../AddTrainingPage/index";
 import useAsync from "../utils/useAsync";
+import { getData } from "../utils/fetch";
 
 type HomePageProps = {
   navigator: Navigator;
-};
-
-const getData = (query: string): (() => Promise<any>) => () => {
-  return new Promise((resolve, reject) => {
-    fetch(`/.netlify/functions/read_all?q=${query}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(json => resolve(json))
-      .catch(error => reject(error));
-  });
 };
 
 const getTraining = getData("all_orders");

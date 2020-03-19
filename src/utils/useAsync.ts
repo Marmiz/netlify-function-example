@@ -1,10 +1,16 @@
 import * as React from "react";
 
-type AsyncFunction = () =>  Promise<any>
+type AsyncFunction = () => Promise<any>;
 
-type ResponseObject = {
-  data: Array<object>
-}
+type FaunaResponse = {
+  ref: object;
+  ts: number;
+  data: object;
+};
+
+export type ResponseObject = {
+  data: Array<FaunaResponse>;
+};
 
 // hook
 function useAsync(asyncFunction: AsyncFunction, immediate = true) {
@@ -25,19 +31,19 @@ function useAsync(asyncFunction: AsyncFunction, immediate = true) {
     // since we are using lambdas
     // all return values will be json
     return asyncFunction()
-    .then(response => setValue(response))
-    .catch(error => setError(error))
-    .finally(() => setPending(false));
+      .then(response => setValue(response))
+      .catch(error => setError(error))
+      .finally(() => setPending(false));
   }, [asyncFunction]);
 
   // call useEffect if we want to execute it immediately
   React.useEffect(() => {
-    if(immediate) {
+    if (immediate) {
       execute();
     }
-  }, [execute, immediate])
+  }, [execute, immediate]);
 
-  return { execute, pending, value, error};
+  return { execute, pending, value, error };
 }
 
 export default useAsync;
