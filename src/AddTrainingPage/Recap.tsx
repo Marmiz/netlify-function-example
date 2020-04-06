@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Extra, Training } from "./index";
+import Card from "../Card";
 
 type RecapProps = {
   extras: Extra[];
@@ -9,11 +10,11 @@ type RecapProps = {
 function Reacp({ training, extras }: RecapProps) {
   return (
     <div className="recap">
-      {training && <div className="recap__training">{training.name}</div>}
+      {training && <Card>{training.name}</Card>}
       {extras.map(e => (
-        <div className="recap__extra" key={e.id}>
+        <Card key={e.id}>
           {e.name} {e.quantity}
-        </div>
+        </Card>
       ))}
     </div>
   );

@@ -1,0 +1,27 @@
+.card {
+  background-color: var(--main-bg-light);
+  box-shadow: 0 0em 1em -0em var(--red-highlight),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+  color: var(--main-text-dark);
+  max-width: 100%;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .close-button {
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  border-radius: 8px;
+  background-color: var(--danger);
+  /* box-shadow: 0 0 1em -0.125em var(--danger-darker),
+    0 0 0 1px var(--danger-darker); */
+}
+
+.card .close-button:active {
+  opacity: 0.6;
+}
