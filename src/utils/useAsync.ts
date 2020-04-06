@@ -2,8 +2,12 @@ import * as React from "react";
 
 type AsyncFunction = () => Promise<any>;
 
+type RefObject = {
+  "@ref": { id: string };
+};
+
 type FaunaResponse = {
-  ref: object;
+  ref: RefObject;
   ts: number;
   data: object;
 };
