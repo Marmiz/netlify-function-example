@@ -5,6 +5,7 @@ import "./card.css";
 export type CardProps = {
   children: React.ReactNode;
   closable: boolean;
+  closeCb?: () => void;
 };
 
 export default Card;

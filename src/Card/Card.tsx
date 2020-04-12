@@ -6,7 +6,10 @@ function Card(props: CardProps) {
   return (
     <div className="card">
       {props.closable && (
-        <Button className="close-button">
+        <Button
+          className="close-button"
+          {...(props.closeCb && { onClick: props.closeCb })}
+        >
           <Icon icon="fa-times" size={18} fixedWidth />
         </Button>
       )}

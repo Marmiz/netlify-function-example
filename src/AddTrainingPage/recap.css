@@ -1,7 +1,7 @@
 .recap {
   display: grid;
-  grid-auto-columns: minmax(20%, 150px);
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 8px;
   padding: 1.5rem 14px;
   background-color: var(--main-bg-light);
 }

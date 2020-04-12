@@ -60,6 +60,17 @@ function AddTraining(props: TrainingProps) {
     return addIntoExtras([...newExtras, { id, name, quantity: 1 }]);
   };
 
+  const onRemove = (id: string): void => {
+    if (id === "") {
+      addIntoTraining(null);
+      return;
+    }
+
+    const filtered = extras.filter((extra: Extra) => extra.id !== id);
+    addIntoExtras(filtered);
+    return;
+  };
+
   return (
     <Page
       renderToolbar={() => (
@@ -80,7 +91,7 @@ function AddTraining(props: TrainingProps) {
             data={extractProductData(value)}
             addExtras={onAddExtras}
           />
-          <Recap training={training} extras={extras} />
+          <Recap training={training} extras={extras} onClose={onRemove} />
         </React.Fragment>
       )}
       <button onClick={addTraining}>add training</button>
