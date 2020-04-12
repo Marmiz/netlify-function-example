@@ -9,8 +9,11 @@
     "dotenv-webpack": "^1.7.0",
     "encoding": "^0.1.12",
     "faunadb": "^2.11.1",
+    "netlify-identity-widget": "^1.5.6",
+    "onsenui": "^2.10.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-onsenui": "^1.11.2",
     "react-scripts": "3.4.0"
   },
   "scripts": {
@@ -37,7 +40,14 @@
     ]
   },
   "devDependencies": {
-    "netlify-lambda": "^1.6.3"
+    "@types/jest": "^25.1.4",
+    "@types/netlify-identity-widget": "^1.4.1",
+    "@types/node": "^13.9.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-onsenui": "^2.9.11",
+    "netlify-lambda": "^1.6.3",
+    "typescript": "^3.8.3"
   },
   "proxy": "http://localhost:9000"
 }

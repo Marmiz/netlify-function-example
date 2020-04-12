@@ -1,0 +1,7 @@
+.recap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 8px;
+  padding: 1.5rem 14px;
+  background-color: var(--main-bg-light);
+}
